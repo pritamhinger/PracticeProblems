@@ -1,4 +1,4 @@
-package com.appdevelapp;
+package com.appdevelapp.problems;
 
 import java.util.HashSet;
 
