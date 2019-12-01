@@ -21,6 +21,6 @@ public class Main {
 
         System.out.println(validator.IsValidSudoku(board, board.length) ? "Valid Sudoku" : "Invalid Sudoku");
 
-        Arrays.ArrayInitializationExample();
+        Arrays.OneDimensionalArrayInitializationExample();
     }
 }
