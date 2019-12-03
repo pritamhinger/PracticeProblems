@@ -87,4 +87,11 @@ class ArraysTest {
         Arrays.reArrange(arr);
         Assert.that(arr.length == 7, "Failed");
     }
+
+    @Test
+    void maxMin() {
+        int[] arr = {1, 2, 3, 4, 5,6};
+        Arrays.maxMin(arr);
+        Assert.that(arr.length == 6, "Failed");
+    }
 }

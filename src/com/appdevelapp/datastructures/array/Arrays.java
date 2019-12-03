@@ -5,6 +5,7 @@ import org.junit.jupiter.api.parallel.Execution;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class Arrays {
@@ -219,6 +220,9 @@ public class Arrays {
 
     public static void reArrange(int[] arr) {
 
+        HashSet<Integer> set = new HashSet<>();
+        set.add(arr[0]);
+
         int i = 0;
         int j = arr.length - 1;
         while(i < j){
@@ -239,6 +243,30 @@ public class Arrays {
 
         for (int item: arr) {
             System.out.println(item + "  ");
+        }
+    }
+
+    public static void maxMin(int[] arr) {
+        int[] result = new int[arr.length];
+        int i =0;
+        int j = arr.length-1;
+        int k = 0;
+        while(i<=j){
+            if(i == j){
+                result[k++] = arr[i++];
+                continue;
+            }
+
+            result[k++] = arr[j--];
+            result[k++] = arr[i++];
+        }
+
+        for (int l = 0; l < arr.length; l++) {
+            arr[l] = result[l];
+        }
+
+        for (int item: arr) {
+            System.out.print(item + "  ");
         }
     }
 }
