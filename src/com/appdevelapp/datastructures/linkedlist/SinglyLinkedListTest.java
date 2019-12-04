@@ -69,4 +69,15 @@ class SinglyLinkedListTest {
         linkedList.InsertAtEnd(4);
         Assert.that(linkedList.searchNode(4), "Failed");
     }
+
+    @Test
+    void deleteByVale() {
+        Assert.that(linkedList.size == 3, "Failed");
+        linkedList.DeleteByVale(1);
+        Assert.that(linkedList.size == 2, "Failed");
+        linkedList.DeleteByVale(3);
+        Assert.that(linkedList.size == 1, "Failed");
+        linkedList.DeleteByVale(3);
+        Assert.that(linkedList.size == 1, "Failed");
+    }
 }

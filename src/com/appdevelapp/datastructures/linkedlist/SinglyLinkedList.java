@@ -80,4 +80,39 @@ public class SinglyLinkedList<T> {
 
         return false;
     }
+
+    public void DeleteAtHead(){
+        if(IsEmpty()){
+            return;
+        }
+
+        Head = Head.nextNode;
+        size--;
+        return;
+    }
+
+    public void DeleteByVale(T data){
+        if(IsEmpty()){
+            return;
+        }
+
+        if(Head.data == data){
+            Head = Head.nextNode;
+            size--;
+            return;
+        }
+
+        SLLNode tempNode = Head;
+        SLLNode currentNode = Head;
+        while(currentNode != null){
+            if(currentNode.data == data){
+                tempNode.nextNode = currentNode.nextNode;
+                size--;
+                return;
+            }
+
+            tempNode = currentNode;
+            currentNode = currentNode.nextNode;
+        }
+    }
 }
