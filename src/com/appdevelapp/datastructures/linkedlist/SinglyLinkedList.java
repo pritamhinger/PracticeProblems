@@ -130,4 +130,19 @@ public class SinglyLinkedList<T> {
 
         headNode = prevNode;
     }
+
+    public SLLNode reverseRecursively(SLLNode node){
+        if(node == null){
+            return null;
+        }
+
+        if(node.nextNode == null){
+            return node;
+        }
+
+        SLLNode newHead = reverseRecursively(node.nextNode);
+        node.nextNode.nextNode = node;
+        node.nextNode = null;
+        return newHead;
+    }
 }

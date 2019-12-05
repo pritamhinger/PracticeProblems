@@ -91,4 +91,13 @@ class SinglyLinkedListTest {
         linkedList.PrintList();
         Assert.that(linkedList.size == 4, "Failed");
     }
+
+    @Test
+    void reverseRecursively() {
+        linkedList.headNode = linkedList.reverseRecursively(linkedList.headNode);
+        linkedList.PrintList();
+        linkedList.InsertAtStart(4);
+        linkedList.headNode = linkedList.reverseRecursively(linkedList.headNode);
+        linkedList.PrintList();
+    }
 }
