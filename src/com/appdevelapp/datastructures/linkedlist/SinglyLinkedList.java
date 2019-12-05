@@ -1,13 +1,11 @@
 package com.appdevelapp.datastructures.linkedlist;
 
-import javax.net.ssl.SSLContext;
-
 public class SinglyLinkedList<T> {
-    public SLLNode<T> Head;
+    public SLLNode<T> headNode;
     public int size;
 
     public SinglyLinkedList(){
-        Head = null;
+        headNode = null;
         size = 0;
     }
 
@@ -21,7 +19,7 @@ public class SinglyLinkedList<T> {
             return;
         }
 
-        SLLNode tempNode = Head;
+        SLLNode tempNode = headNode;
         while(tempNode != null){
             System.out.print(tempNode.data.toString() + " --> ");
             tempNode = tempNode.nextNode;
@@ -32,8 +30,8 @@ public class SinglyLinkedList<T> {
     public void InsertAtStart(T data){
         SLLNode newNode = new SLLNode(data);
 
-        newNode.nextNode = Head;
-        Head = newNode;
+        newNode.nextNode = headNode;
+        headNode = newNode;
         size++;
     }
 
@@ -44,7 +42,7 @@ public class SinglyLinkedList<T> {
         }
 
         SLLNode newNode = new SLLNode(data);
-        SLLNode temp = Head;
+        SLLNode temp = headNode;
         while(temp.nextNode != null){
             temp = temp.nextNode;
         }
@@ -55,7 +53,7 @@ public class SinglyLinkedList<T> {
 
     public void InsertAfter(T data, T referenceValue){
         SLLNode newNode = new SLLNode(data);
-        SLLNode tempNode = this.Head;
+        SLLNode tempNode = this.headNode;
 
         while(tempNode != null && tempNode.data != referenceValue){
             tempNode = tempNode.nextNode;
@@ -69,7 +67,7 @@ public class SinglyLinkedList<T> {
     }
 
     public boolean searchNode(T data) {
-        SLLNode tempNode = this.Head;
+        SLLNode tempNode = this.headNode;
         while(tempNode != null && tempNode.data != data){
             tempNode = tempNode.nextNode;
         }
@@ -86,7 +84,7 @@ public class SinglyLinkedList<T> {
             return;
         }
 
-        Head = Head.nextNode;
+        headNode = headNode.nextNode;
         size--;
         return;
     }
@@ -96,14 +94,14 @@ public class SinglyLinkedList<T> {
             return;
         }
 
-        if(Head.data == data){
-            Head = Head.nextNode;
+        if(headNode.data == data){
+            headNode = headNode.nextNode;
             size--;
             return;
         }
 
-        SLLNode tempNode = Head;
-        SLLNode currentNode = Head;
+        SLLNode tempNode = headNode;
+        SLLNode currentNode = headNode;
         while(currentNode != null){
             if(currentNode.data == data){
                 tempNode.nextNode = currentNode.nextNode;
@@ -114,5 +112,22 @@ public class SinglyLinkedList<T> {
             tempNode = currentNode;
             currentNode = currentNode.nextNode;
         }
+    }
+
+    public <T> void reverse(SinglyLinkedList<T> list){
+        if(list.IsEmpty()){
+            return;
+        }
+
+        SLLNode prevNode = null;
+        SLLNode currentNode = headNode;
+        while(currentNode != null){
+            SLLNode tempNode = currentNode;
+            currentNode = currentNode.nextNode;
+            tempNode.nextNode = prevNode;
+            prevNode = tempNode;
+        }
+
+        headNode = prevNode;
     }
 }

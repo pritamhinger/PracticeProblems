@@ -5,8 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import sun.jvm.hotspot.utilities.Assert;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class SinglyLinkedListTest {
 
     SinglyLinkedList<Integer> linkedList;
@@ -37,7 +35,7 @@ class SinglyLinkedListTest {
         Assert.that(linkedList.size == 3,"Failed");
         linkedList.InsertAtStart(4);
         linkedList.PrintList();
-        Assert.that(linkedList.Head.data == 4, "Failed");
+        Assert.that(linkedList.headNode.data == 4, "Failed");
     }
 
     @Test
@@ -79,5 +77,18 @@ class SinglyLinkedListTest {
         Assert.that(linkedList.size == 1, "Failed");
         linkedList.DeleteByVale(3);
         Assert.that(linkedList.size == 1, "Failed");
+    }
+
+    @Test
+    void reverse() {
+        Assert.that(linkedList.size == 3, "Failed");
+        linkedList.PrintList();
+        linkedList.reverse(linkedList);
+        Assert.that(linkedList.size == 3, "Failed");
+        linkedList.PrintList();
+        linkedList.InsertAtStart(4);
+        linkedList.reverse(linkedList);
+        linkedList.PrintList();
+        Assert.that(linkedList.size == 4, "Failed");
     }
 }
