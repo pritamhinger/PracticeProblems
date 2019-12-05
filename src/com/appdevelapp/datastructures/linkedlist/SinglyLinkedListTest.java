@@ -100,4 +100,15 @@ class SinglyLinkedListTest {
         linkedList.headNode = linkedList.reverseRecursively(linkedList.headNode);
         linkedList.PrintList();
     }
+
+    @Test
+    void detectLoop() {
+        linkedList.PrintList();
+        Assert.that(SinglyLinkedList.detectLoop(linkedList) == false, "Failed");
+        linkedList.InsertAtEnd(4);
+        linkedList.InsertAtEnd(5);
+        linkedList.PrintList();
+        linkedList.headNode.nextNode.nextNode.nextNode.nextNode.nextNode = linkedList.headNode.nextNode.nextNode;
+        Assert.that(SinglyLinkedList.detectLoop(linkedList) == true, "Failed");
+    }
 }

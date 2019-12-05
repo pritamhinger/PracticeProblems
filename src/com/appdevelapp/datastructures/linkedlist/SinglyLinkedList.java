@@ -145,4 +145,20 @@ public class SinglyLinkedList<T> {
         node.nextNode = null;
         return newHead;
     }
+
+    public static <T> boolean detectLoop(SinglyLinkedList<T> list) {
+        SLLNode slowPtr = list.headNode;
+        SLLNode fastPtr = list.headNode;
+        while(slowPtr != null && fastPtr != null && fastPtr.nextNode != null) {
+
+            fastPtr = fastPtr.nextNode.nextNode;
+            slowPtr = slowPtr.nextNode;
+
+            if (slowPtr == fastPtr) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
