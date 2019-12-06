@@ -5,6 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import sun.jvm.hotspot.utilities.Assert;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 class SinglyLinkedListTest {
 
     SinglyLinkedList<Integer> linkedList;
@@ -146,5 +148,19 @@ class SinglyLinkedListTest {
     void intersection() {
         SinglyLinkedList intersection = SinglyLinkedList.intersection(linkedList, otherLinkedList);
         intersection.PrintList();
+    }
+
+    @Test
+    void nthElementFromEnd() {
+        Assert.that(SinglyLinkedList.nthElementFromEnd(linkedList, 1).equals(3), "Failed");
+        Assert.that(SinglyLinkedList.nthElementFromEnd(linkedList, 2).equals(2), "Failed");
+        Assert.that(SinglyLinkedList.nthElementFromEnd(linkedList, 3).equals(1), "Failed");
+
+    }
+
+    @Test
+    void nthElementFromEnd_InvalidN() {
+        String str = null;
+        assertThrows(IndexOutOfBoundsException.class, () -> SinglyLinkedList.nthElementFromEnd(linkedList,4));
     }
 }

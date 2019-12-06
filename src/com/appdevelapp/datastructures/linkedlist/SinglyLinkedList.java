@@ -278,4 +278,26 @@ public class SinglyLinkedList<T> {
 
         return result;
     }
+
+    public static <T> Object nthElementFromEnd(SinglyLinkedList<T> list, int n) {
+        if(list.size < n){
+            throw new IndexOutOfBoundsException();
+        }
+
+        SLLNode tempNode = list.headNode;
+        int count = 0;
+        while (tempNode != null && count < n){
+            tempNode = tempNode.nextNode;
+            count++;
+        }
+
+        SLLNode trackingNode = list.headNode;
+        while (tempNode != null){
+            tempNode = tempNode.nextNode;
+            trackingNode = trackingNode.nextNode;
+        }
+
+
+        return trackingNode.data;
+    }
 }
