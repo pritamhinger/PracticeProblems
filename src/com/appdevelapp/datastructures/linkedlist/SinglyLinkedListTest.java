@@ -8,12 +8,18 @@ import sun.jvm.hotspot.utilities.Assert;
 class SinglyLinkedListTest {
 
     SinglyLinkedList<Integer> linkedList;
+    SinglyLinkedList<Integer> otherLinkedList;
     @BeforeEach
     void setUp() {
         linkedList = new SinglyLinkedList<Integer>();
         linkedList.InsertAtStart(3);
         linkedList.InsertAtStart(2);
         linkedList.InsertAtStart(1);
+
+        otherLinkedList = new SinglyLinkedList<Integer>();
+        otherLinkedList.InsertAtStart(2);
+        otherLinkedList.InsertAtStart(5);
+        otherLinkedList.InsertAtStart(1);
     }
 
     @AfterEach
@@ -110,5 +116,35 @@ class SinglyLinkedListTest {
         linkedList.PrintList();
         linkedList.headNode.nextNode.nextNode.nextNode.nextNode.nextNode = linkedList.headNode.nextNode.nextNode;
         Assert.that(SinglyLinkedList.detectLoop(linkedList) == true, "Failed");
+    }
+
+    @Test
+    void findMiddle() {
+        Assert.that(linkedList.findMiddle(linkedList).equals(2), "Failed");
+        linkedList.InsertAtEnd(4);
+        linkedList.reverse(linkedList);
+        Assert.that(linkedList.findMiddle(linkedList).equals(3), "Failed");
+    }
+
+    @Test
+    void removeDuplicates() {
+        linkedList.InsertAtEnd(3);
+        linkedList.InsertAfter(1,1);
+        linkedList.PrintList();
+        SinglyLinkedList.removeDuplicates(linkedList);
+        linkedList.PrintList();
+        Assert.that(linkedList.size == 3, "Failed");
+    }
+
+    @Test
+    void union() {
+        SinglyLinkedList unionList = SinglyLinkedList.union(linkedList, otherLinkedList);
+        unionList.PrintList();
+    }
+
+    @Test
+    void intersection() {
+        SinglyLinkedList intersection = SinglyLinkedList.intersection(linkedList, otherLinkedList);
+        intersection.PrintList();
     }
 }

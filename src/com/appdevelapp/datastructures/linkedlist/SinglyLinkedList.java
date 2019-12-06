@@ -1,5 +1,9 @@
 package com.appdevelapp.datastructures.linkedlist;
 
+import jdk.internal.org.objectweb.asm.commons.JSRInlinerAdapter;
+
+import java.util.HashSet;
+
 public class SinglyLinkedList<T> {
     public SLLNode<T> headNode;
     public int size;
@@ -160,5 +164,118 @@ public class SinglyLinkedList<T> {
         }
 
         return false;
+    }
+
+    public static <T> Object findMiddle(SinglyLinkedList<T> list) {
+        if(list.IsEmpty()){
+            return null;
+        }
+
+        SLLNode slow = list.headNode;
+        SLLNode fast = list.headNode;
+
+        while (slow != null && fast != null && fast.nextNode!= null){
+            fast = fast.nextNode.nextNode;
+            if(fast != null){
+                slow = slow.nextNode;
+            }
+        }
+
+        return  slow.data;
+    }
+
+    public static <T> void removeDuplicates(SinglyLinkedList<T> list) {
+        if(list.IsEmpty()){
+            return;
+        }
+
+        HashSet<T> set = new HashSet<>();
+        SLLNode<T> current = list.headNode;
+        SLLNode<T> previous = null;
+        while(current != null){
+            if(!set.contains(current.data)){
+                set.add(current.data);
+                previous = current;
+                current = current.nextNode;
+            }
+            else{
+                previous.nextNode = current.nextNode;
+                current.nextNode = null;
+                current = previous.nextNode;
+                list.size--;
+            }
+        }
+    }
+
+    public static <T> SinglyLinkedList<T> union(SinglyLinkedList<T> list1, SinglyLinkedList<T> list2) {
+        SinglyLinkedList<T> result = new SinglyLinkedList<T>();
+        if(list1.IsEmpty()){
+            SinglyLinkedList.removeDuplicates(list2);
+            return list2;
+        }
+
+        if(list2.IsEmpty()){
+            SinglyLinkedList.removeDuplicates(list1);
+            return list1;
+        }
+
+        SLLNode<T> current = list1.headNode;
+        while(current.nextNode != null){
+            current = current.nextNode;
+        }
+
+        current.nextNode = list2.headNode;
+        removeDuplicates(list1);
+        return list1;
+    }
+
+//    public void removeDuplicatesWithHashing() {
+//        SLLNode<T> current = this.headNode;
+//        SLLNode<T> prevNode = this.headNode;
+//        //will store all the elements that we observe once
+//        HashSet<T> visitedNodes = new HashSet<T>();
+//
+//        if (!IsEmpty() && current.nextNode != null) {
+//            while (current != null) {
+//                //check if already visited then delete this node
+//                if (visitedNodes.contains(current.data)) {
+//                    //deleting the node by undating the pointer of previous node
+//                    prevNode.nextNode = current.nextNode;
+//                    current = current.nextNode;
+//                } else {
+//                    //if node was not already visited then add it to the visited set
+//                    visitedNodes.add(current.data);
+//                    //moving on to next element in the list
+//                    prevNode = current;
+//                    current = current.nextNode;
+//                }
+//            }
+//        }
+//    }
+
+    //performs intersection between list
+    public static <T> SinglyLinkedList<T> intersection(SinglyLinkedList<T> list1, SinglyLinkedList<T> list2) {
+        SinglyLinkedList<T> result = new SinglyLinkedList<T>();
+        if(list1.IsEmpty() || list2.IsEmpty()){
+            return result;
+        }
+
+        java.util.HashSet<T> set = new java.util.HashSet<>();
+        SLLNode<T> current = list1.headNode;
+        while(current != null){
+            set.add(current.data);
+            current = current.nextNode;
+        }
+
+        current = list2.headNode;
+        while(current != null){
+            if(set.contains(current.data)){
+                result.InsertAtEnd(current.data);
+            }
+
+            current = current.nextNode;
+        }
+
+        return result;
     }
 }
