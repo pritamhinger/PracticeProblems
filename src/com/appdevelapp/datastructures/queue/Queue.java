@@ -59,4 +59,31 @@ public class Queue<T> {
         currentSize--;
         return value;
     }
+
+    public static String[] findBin(int number) throws Exception {
+        String[] result = new String[number];
+        if(number == 0){
+            return result;
+        }
+
+        String currentString = "1";
+        result[0] = currentString;
+        Queue<String> queue = new Queue<>(number);
+        queue.enqueue(currentString);
+        int i = 1;
+        while(i<number && !queue.isEmpty()){
+            currentString = queue.dequeue();
+            if(currentString != null){
+                result[i++] = currentString + "0";
+                if(i == number){
+                    break;
+                }
+                result[i++] = currentString + "1";
+                queue.enqueue(currentString + "0");
+                queue.enqueue(currentString + "1");
+            }
+        }
+
+        return result; //For number = 3 , result = {"1","10","11"};
+    }
 }

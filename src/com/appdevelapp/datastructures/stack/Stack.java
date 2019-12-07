@@ -1,5 +1,7 @@
 package com.appdevelapp.datastructures.stack;
 
+import com.appdevelapp.datastructures.queue.Queue;
+
 public class Stack<T> {
     public int getTop() {
         return top;
@@ -35,7 +37,7 @@ public class Stack<T> {
         return array[top];
     }
 
-    public void Push(T value) throws Exception{
+    public void push(T value) throws Exception{
         if(isFull()){
             throw new Exception("Stack is full");
         }
@@ -54,6 +56,4 @@ public class Stack<T> {
     public int getCapacity(){
         return maxSize;
     }
-
-
 }
