@@ -6,6 +6,7 @@ import com.apple.laf.AquaEditorPaneUI;
 public class ReverseKItemsInQueue {
     public static <V> void reverseK(Queue<V> queue, int k) throws Exception {
         Stack<V> stack = new Stack<>(k);
+        int queueSize = queue.getCurrentSize();
         int i = 0;
         while (i < k){
             if(queue.isEmpty()){
@@ -16,17 +17,23 @@ public class ReverseKItemsInQueue {
             i++;
         }
 
-        Queue<V> tempQueue = new Queue<>(queue.getMaxSize() - k);
-        while(!queue.isEmpty()){
-            tempQueue.enqueue(queue.dequeue());
-        }
-
         while (!stack.isEmpty()){
             queue.enqueue(stack.pop());
         }
 
-        while (!tempQueue.isEmpty()){
-            queue.enqueue(tempQueue.dequeue());
+        for (int j = 0; j < (queueSize - k); j++) {
+            queue.enqueue(queue.dequeue());
         }
+
+//        Queue<V> tempQueue = new Queue<>(queue.getMaxSize() - k);
+//        while(!queue.isEmpty()){
+//            tempQueue.enqueue(queue.dequeue());
+//        }
+//
+//
+//
+//        while (!tempQueue.isEmpty()){
+//            queue.enqueue(tempQueue.dequeue());
+//        }
     }
 }
