@@ -2,6 +2,8 @@ package com.appdevelapp.datastructures.stack;
 
 import com.appdevelapp.datastructures.queue.Queue;
 
+import javax.management.StandardEmitterMBean;
+
 public class Stack<T> {
     public int getTop() {
         return top;
@@ -55,5 +57,27 @@ public class Stack<T> {
 
     public int getCapacity(){
         return maxSize;
+    }
+
+    public static void sortStack(Stack<Integer> stack) throws Exception {
+        if(stack.isEmpty()){
+            return;
+        }
+
+        Stack<Integer> tempStack = new Stack<>(stack.getCapacity());
+        tempStack.push(stack.pop());
+
+        while(!stack.isEmpty()){
+            Integer value = stack.pop();
+            while (!tempStack.isEmpty() && value <= tempStack.top()){
+                stack.push(tempStack.pop());
+            }
+
+            tempStack.push(value);
+        }
+
+        while (!tempStack.isEmpty()){
+            stack.push(tempStack.pop());
+        }
     }
 }
