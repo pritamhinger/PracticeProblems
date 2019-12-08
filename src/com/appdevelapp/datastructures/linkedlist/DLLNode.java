@@ -5,7 +5,7 @@ public class DLLNode<T> {
     public DLLNode<T> nextNode;
     public DLLNode<T> prevNode;
 
-    public DLLNode(T data){
+    public DLLNode(T data) {
         this.data = data;
         this.nextNode = null;
         this.prevNode = null;
