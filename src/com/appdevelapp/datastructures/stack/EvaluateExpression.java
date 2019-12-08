@@ -33,7 +33,6 @@ public class EvaluateExpression {
             }
         }
 
-
         return stack.top();
     }
 }
