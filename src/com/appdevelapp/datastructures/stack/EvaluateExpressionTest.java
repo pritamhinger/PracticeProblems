@@ -22,4 +22,11 @@ class EvaluateExpressionTest {
         Integer result = EvaluateExpression.evaluatePostFix("638*+4-");
         Assert.that(result == 26, "Failed");
     }
+
+    @Test
+    void isBalanced() throws Exception {
+        Assert.that(EvaluateExpression.isBalanced("(())") == true, "failed");
+        Assert.that(EvaluateExpression.isBalanced("{[({})]") == false, "failed");
+        Assert.that(EvaluateExpression.isBalanced("}}") == false, "failed");
+    }
 }
