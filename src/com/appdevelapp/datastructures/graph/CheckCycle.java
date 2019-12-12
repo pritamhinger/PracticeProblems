@@ -18,6 +18,50 @@ public class CheckCycle {
         return false;
     }
 
+    public static int findMotherVertex(Graph g) throws Exception {
+        for (int i = 0; i < g.vertices; i++) {
+            if(checkIfAllNodesVisited(ModifiedDFS(g, i))){
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    private static boolean[] ModifiedDFS(Graph g, int source) throws Exception {
+        boolean[] visitedNodes = new boolean[g.vertices];
+        visitedNodes[source] = true;
+        Stack<Integer> stack = new Stack(g.vertices);
+        stack.push(source);
+
+        while (!stack.isEmpty()){
+            int currentVertex = stack.pop();
+            DoublyLinkedList<Integer> neighbourVertexList = g.adjacencyList[currentVertex];
+            if(neighbourVertexList != null){
+                DLLNode<Integer> neighbourVertex = neighbourVertexList.GetHeadNode();
+                while (neighbourVertex != null){
+                    if(!visitedNodes[neighbourVertex.data]){
+                        stack.push(neighbourVertex.data);
+                        visitedNodes[neighbourVertex.data] = true;
+                    }
+                    neighbourVertex = neighbourVertex.nextNode;
+                }
+            }
+        }
+
+        return  visitedNodes;
+    }
+
+    private static boolean checkIfAllNodesVisited(boolean[] visitedNodes){
+        for (boolean currentStatus: visitedNodes) {
+            if(!currentStatus){
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     private static boolean CheckIfCycle(Graph g, int source, boolean[] visited, boolean[] nodeStack) throws Exception {
 
         if (nodeStack[source]) {
