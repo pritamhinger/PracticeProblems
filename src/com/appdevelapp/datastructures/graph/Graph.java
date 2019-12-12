@@ -3,6 +3,7 @@ package com.appdevelapp.datastructures.graph;
 import com.appdevelapp.datastructures.linkedlist.DLLNode;
 import com.appdevelapp.datastructures.linkedlist.DoublyLinkedList;
 import com.appdevelapp.datastructures.queue.Queue;
+import com.appdevelapp.datastructures.stack.Stack;
 
 import java.util.HashSet;
 
@@ -64,16 +65,15 @@ public class Graph {
         while (!queue.isEmpty()){
 
             Integer currentVertexData = queue.dequeue();
-            result += currentVertexData.toString();
+            result += String.valueOf(currentVertexData);
 
             DoublyLinkedList vertex = g.adjacencyList[currentVertexData];
             if(vertex.GetHeadNode() != null){
-                DLLNode currentVertex = vertex.GetHeadNode();
+                DLLNode<Integer> currentVertex = vertex.GetHeadNode();
                 while (currentVertex != null){
-                    int value = Integer.parseInt(currentVertex.data.toString());
-                    if(!visitedNodes[value]){
-                        queue.enqueue(value);
-                        visitedNodes[value] = true;
+                    if(!visitedNodes[currentVertex.data]){
+                        queue.enqueue(currentVertex.data);
+                        visitedNodes[currentVertex.data] = true;
                     }
 
                     currentVertex = currentVertex.nextNode;
@@ -111,5 +111,34 @@ public class Graph {
         }
         // Write - Your - Code
         return result; //For the above graph, it should return "01234" or "02143"
+    }
+
+    public static String dfsTraversal(Graph g, int source) throws Exception {
+        String result = "";
+        int num_of_vertices = g.vertices;
+        boolean[] visitedNodes = new boolean[num_of_vertices];
+        Stack<Integer> stack = new Stack<>(num_of_vertices);
+        stack.push(source);
+
+        while (!stack.isEmpty()){
+            Integer value = stack.pop();
+            result += String.valueOf(value);
+            visitedNodes[value] = true;
+
+            DoublyLinkedList currentVertex = g.adjacencyList[value];
+            if (currentVertex.GetHeadNode() != null){
+                DLLNode<Integer> vertex = currentVertex.GetHeadNode();
+                while (vertex != null){
+                    if(!visitedNodes[vertex.data]){
+                        stack.push(vertex.data);
+                    }
+
+                    vertex = vertex.nextNode;
+                }
+            }
+        }
+        boolean isNegative = (-10 < 0);
+        // Write - Your - Code
+        return result; //For the above graph, it should return "01342" or "02143"
     }
 }

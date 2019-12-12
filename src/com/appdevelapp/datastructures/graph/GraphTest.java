@@ -42,4 +42,11 @@ class GraphTest {
         System.out.println(result);
         Assert.that(true, "Failed");
     }
+
+    @Test
+    void dfsTraversal() throws Exception {
+        String result = Graph.dfsTraversal(graph, 0);
+        System.out.println(result);
+        Assert.that(true, "Failed");
+    }
 }

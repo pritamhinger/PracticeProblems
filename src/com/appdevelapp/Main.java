@@ -6,21 +6,39 @@ import com.appdevelapp.problems.SudokuValidator;
 public class Main {
 
     public static void main(String[] args) {
-        SudokuValidator validator = new SudokuValidator();
-        int[][] board = new int[][]{
-            {5,3,0,0,7,0,0,0,0},
-            {6,0,0,1,9,5,0,0,0},
-                {0,9,8,0,0,0,0,6,0},
-                {8,0,0,0,6,0,0,0,3},
-                {4,0,0,8,0,3,0,0,1},
-                {7,0,0,0,2,0,0,0,6},
-                {0,6,0,0,0,0,2,8,0},
-                {0,0,0,4,1,9,0,0,5},
-                {0,0,0,0,8,0,0,7,9}
-        };
+        System.out.println(reverse(1534236469));
+    }
 
-        System.out.println(validator.IsValidSudoku(board, board.length) ? "Valid Sudoku" : "Invalid Sudoku");
+    public static int reverse(int x) {
+        boolean isNegative = (x < 0);
+        if(isNegative){
+            x = x*-1;
+        }
 
-        Arrays.OneDimensionalArrayInitializationExample();
+        int reverseNumber = 0;
+        int number = x;
+        while(x > 0){
+            int reminder = x%10;
+            if(reverseNumber > 214748364)
+            {
+                return 0;
+            }
+            x = x/10;
+            reverseNumber = reverseNumber*10 + reminder;
+            System.out.println(reverseNumber);
+            if(reverseNumber < 0){
+                return 0;
+            }
+        }
+
+        if(reverseNumber < 0){
+            return 0;
+        }
+
+        if(isNegative){
+            return reverseNumber*-1;
+        }
+
+        return reverseNumber;
     }
 }
