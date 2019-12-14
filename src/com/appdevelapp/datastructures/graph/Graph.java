@@ -137,8 +137,7 @@ public class Graph {
                 }
             }
         }
-        boolean isNegative = (-10 < 0);
-        // Write - Your - Code
-        return result; //For the above graph, it should return "01342" or "02143"
+
+        return result;
     }
 }
