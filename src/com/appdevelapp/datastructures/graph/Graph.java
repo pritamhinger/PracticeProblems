@@ -140,4 +140,71 @@ public class Graph {
 
         return result;
     }
+
+    public static int numEdges(Graph g) {
+        int numberOfEdges = 0;
+        for (int i = 0; i < g.vertices; i++) {
+            DoublyLinkedList<Integer> neighbourList = g.adjacencyList[i];
+            if (neighbourList != null) {
+                numberOfEdges += neighbourList.Size();
+            }
+        }
+
+        return numberOfEdges;
+    }
+
+    public static boolean CheckPath(Graph graph, int source, int destination){
+        boolean[] visitedNodes = new boolean[graph.vertices];
+        visitedNodes = DFSTraversalForNode(graph, source, visitedNodes);
+        return visitedNodes[destination];
+    }
+
+    private static boolean[] DFSTraversalForNode(Graph graph, int vertex, boolean[] visitedNodes){
+        visitedNodes[vertex] = true;
+        DoublyLinkedList<Integer> neighbourList = graph.adjacencyList[vertex];
+        if(neighbourList != null){
+            DLLNode<Integer> tempNode = neighbourList.GetHeadNode();
+            while (tempNode != null){
+                if(!visitedNodes[tempNode.data]){
+                    visitedNodes = DFSTraversalForNode(graph, tempNode.data, visitedNodes);
+                }
+
+                tempNode = tempNode.nextNode;
+            }
+        }
+
+        return visitedNodes;
+    }
+
+    public static boolean IsTree(Graph graph){
+        boolean[] visitedNodes = new boolean[graph.vertices];
+        return  IsTreeUtil(graph, 0, visitedNodes);
+    }
+
+    private  static  boolean IsTreeUtil(Graph graph, int vertex, boolean[] visitedNodes){
+        if(visitedNodes[vertex]){
+            return false;
+        }
+
+        visitedNodes[vertex] = true;
+        DoublyLinkedList<Integer> neighbourList = graph.adjacencyList[vertex];
+        if (neighbourList != null){
+            DLLNode<Integer> tempNode = neighbourList.GetHeadNode();
+            while (tempNode != null){
+                if(visitedNodes[tempNode.data]){
+                    return false;
+                }
+                else{
+                    boolean result = IsTreeUtil(graph, tempNode.data, visitedNodes);
+                    if(!result){
+                        return false;
+                    }
+                }
+
+                tempNode = tempNode.nextNode;
+            }
+        }
+
+        return true;
+    }
 }
