@@ -81,4 +81,20 @@ class GraphTest {
         Assert.that(Graph.IsTree(tree1), "Failed");
         Assert.that(!Graph.IsTree(tree2), "Failed");
     }
+
+    @Test
+    void findMin() throws Exception {
+        int distance = Graph.findMin(graph,0,4);
+        System.out.println(distance);
+        Assert.that(distance == 2, "Failed");
+
+        distance = Graph.findMin(graph,1,2);
+        System.out.println(distance);
+        Assert.that(distance == 3, "Failed");
+
+        tree1.addEdge(7,0);
+        distance = Graph.findMin(tree1,1,14);
+        System.out.println(distance);
+        Assert.that( distance== 6, "Failed");
+    }
 }

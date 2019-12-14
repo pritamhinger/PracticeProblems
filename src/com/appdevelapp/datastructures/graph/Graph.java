@@ -4,6 +4,7 @@ import com.appdevelapp.datastructures.linkedlist.DLLNode;
 import com.appdevelapp.datastructures.linkedlist.DoublyLinkedList;
 import com.appdevelapp.datastructures.queue.Queue;
 import com.appdevelapp.datastructures.stack.Stack;
+import sun.awt.CGraphicsConfig;
 
 import java.util.HashSet;
 
@@ -207,4 +208,40 @@ public class Graph {
 
         return true;
     }
+
+    public static int findMin(Graph g, int source, int destination) throws Exception {
+        boolean[] visitedNodes = new boolean[g.vertices];
+        int distance = -1;
+        int level=0;
+        Queue<Integer> queue = new Queue<>(g.vertices);
+        Queue<Integer> levelQueue = new Queue<>(g.vertices);
+        queue.enqueue(source);
+        levelQueue.enqueue(0);
+        while (!queue.isEmpty()){
+            Integer vertex = queue.dequeue();
+            level = levelQueue.dequeue();
+            visitedNodes[vertex] = true;
+            int unvistedNeighbours = 0;
+            DoublyLinkedList<Integer> neighbourList = g.adjacencyList[vertex];
+            if(neighbourList != null) {
+                DLLNode<Integer> tempNode = neighbourList.GetHeadNode();
+                while (tempNode != null) {
+                    if (tempNode.data == destination) {
+                        return level + 1;
+                    }
+
+                    if (!visitedNodes[tempNode.data]) {
+                        unvistedNeighbours++;
+                        queue.enqueue(tempNode.data);
+                        levelQueue.enqueue(level+1);
+                    }
+
+                    tempNode = tempNode.nextNode;
+                }
+            }
+        }
+
+        return -1;
+    }
+
 }
