@@ -82,4 +82,15 @@ class BinaryTreeTest {
         bst.add(7);
         Assert.that(bst.searchIteratively(7) != null, "Failed");
     }
+
+    @Test
+    void delete() {
+        Assert.that(bst.delete(bst.getRoot(),7) == false, "Failed");
+        bst.printTree(bst.getRoot());
+        System.out.println();
+        Assert.that(bst.delete(bst.getRoot(),6), "Failed");
+        bst.printTree(bst.getRoot());
+        System.out.println();
+        bst.printTreeInOrder(bst.getRoot());
+    }
 }

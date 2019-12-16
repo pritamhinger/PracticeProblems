@@ -98,6 +98,90 @@ public class BinaryTree {
         }
     }
 
+    public boolean delete(TreeNode currentNode, int value){
+        if(isEmpty()){
+            return false;
+        }
+
+        TreeNode parent = null;
+        while (currentNode != null && currentNode.getData() != value){
+            parent =  currentNode;
+            if(value < currentNode.getData()){
+                currentNode = currentNode.getLeftChild();
+            }
+            else{
+                currentNode = currentNode.getRightChild();
+            }
+        }
+
+        if(currentNode == null){
+            return false;
+        }
+
+        if(currentNode.getLeftChild() == null && currentNode.getRightChild() == null){
+            if(root.getData() == currentNode.getData()){
+                setRoot(null);
+                return true;
+            }
+
+            if(currentNode.getData() <= parent.getData()){
+                parent.setLeftChild(null);
+                currentNode = null;
+                return true;
+            }
+            else{
+                parent.setRightChild(null);
+                currentNode = null;
+                return true;
+            }
+        }
+        else if(currentNode.getRightChild() == null){
+            if(root.getData() == currentNode.getData()){
+                setRoot(currentNode.getLeftChild());
+                return true;
+            }
+            else if(currentNode.getData() <= parent.getData()){
+                parent.setLeftChild(currentNode.getLeftChild());
+                return true;
+            }
+            else{
+                parent.setRightChild(currentNode.getLeftChild());
+                return true;
+            }
+        }
+        else if(currentNode.getLeftChild() == null){
+            if(root.getData() == currentNode.getData()){
+                setRoot(currentNode.getRightChild());
+                return true;
+            }
+            else if(currentNode.getData() <= parent.getData()){
+                parent.setLeftChild(currentNode.getRightChild());
+                return true;
+            }
+            else{
+                parent.setRightChild(currentNode.getLeftChild());
+            }
+        }
+        else{
+            TreeNode minNode =  findMinimumValueNodeInTree(currentNode.getRightChild());
+            int tempValue = minNode.getData();
+            delete(root, tempValue);
+            currentNode.setData(tempValue);
+            return true;
+        }
+        return true;
+    }
+
+    private TreeNode findMinimumValueNodeInTree(TreeNode root) {
+        TreeNode tempNode = root;
+
+        while (tempNode.getLeftChild() != null) {
+            tempNode = tempNode.getLeftChild();
+        }
+
+        return tempNode;
+    }
+
     public boolean isEmpty(){
         return  root == null;
     }
