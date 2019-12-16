@@ -5,7 +5,26 @@ public class BinaryTree {
         return root;
     }
 
+    public void setRoot(TreeNode root) {
+        this.root = root;
+    }
+
     private TreeNode root;
+
+    public TreeNode addRecursively(TreeNode currentNode, int value){
+        if(currentNode == null){
+            return new TreeNode(value);
+        }
+
+        if(value <= currentNode.getData()){
+            currentNode.setLeftChild(addRecursively(currentNode.getLeftChild(), value));
+        }
+        else {
+            currentNode.setRightChild(addRecursively(currentNode.getRightChild(),value));
+        }
+
+        return currentNode;
+    }
 
     public boolean add(int value){
         if(isEmpty()){
@@ -39,6 +58,44 @@ public class BinaryTree {
         }
 
         return false;
+    }
+
+    public TreeNode searchIteratively(int value){
+        if(isEmpty()){
+            return null;
+        }
+
+        TreeNode currentNode = root;
+        while (currentNode != null){
+            if(currentNode.getData() == value){
+                return currentNode;
+            }
+            else if(value < currentNode.getData()){
+                currentNode = currentNode.getLeftChild();
+            }
+            else {
+                currentNode = currentNode.getRightChild();
+            }
+        }
+
+        return null;
+    }
+
+    public TreeNode seachRecursively(TreeNode root, int value){
+        if(root == null){
+            return null;
+        }
+
+        int currentValue = root.getData();
+        if(currentValue == value){
+            return root;
+        }
+        else if(value < currentValue){
+            return seachRecursively(root.getLeftChild(), value);
+        }
+        else{
+            return seachRecursively(root.getRightChild(), value);
+        }
     }
 
     public boolean isEmpty(){
