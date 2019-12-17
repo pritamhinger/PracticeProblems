@@ -5,8 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import sun.jvm.hotspot.utilities.Assert;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class BinaryTreeTest {
 
     BinaryTree tree;
@@ -48,7 +46,7 @@ class BinaryTreeTest {
         System.out.println("Iterative Version");
         tree.printTree(tree.getRoot());
         System.out.println();
-        tree.printTreeInOrder(tree.getRoot());
+        tree.inOrderTraversal(tree.getRoot());
     }
 
     @Test
@@ -66,7 +64,7 @@ class BinaryTreeTest {
         System.out.println("Recursive Version");
         tree.printTree(tree.getRoot());
         System.out.println();
-        tree.printTreeInOrder(tree.getRoot());
+        tree.inOrderTraversal(tree.getRoot());
     }
 
     @Test
@@ -91,6 +89,28 @@ class BinaryTreeTest {
         Assert.that(bst.delete(bst.getRoot(),6), "Failed");
         bst.printTree(bst.getRoot());
         System.out.println();
-        bst.printTreeInOrder(bst.getRoot());
+        bst.inOrderTraversal(bst.getRoot());
+    }
+
+    @Test
+    void preOrderTraversal() {
+        bst.preOrderTraversal(bst.getRoot());
+        System.out.println();
+        bst.postOrderTraversal(bst.getRoot());
+        System.out.println();
+        bst.inOrderTraversal(bst.getRoot());
+        Assert.that(bst.getRoot().getData() == 6, "Failed");
+    }
+
+    @Test
+    void postOrderTraversal() {
+        bst.postOrderTraversal(bst.getRoot());
+        Assert.that(bst.getRoot().getData() == 6, "Failed");
+    }
+
+    @Test
+    void inOrderTraversal() {
+        bst.inOrderTraversal(bst.getRoot());
+        Assert.that(bst.getRoot().getData() == 6, "Failed");
     }
 }

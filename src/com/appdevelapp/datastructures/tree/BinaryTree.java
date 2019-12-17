@@ -196,13 +196,33 @@ public class BinaryTree {
         printTree(node.getRightChild());
     }
 
-    public void printTreeInOrder(TreeNode node) {
+    public void preOrderTraversal(TreeNode node){
+        if(node == null){
+            return;
+        }
+
+        System.out.print(node.getData() + ", ");
+        preOrderTraversal(node.getLeftChild());
+        preOrderTraversal(node.getRightChild());
+    }
+
+    public void postOrderTraversal(TreeNode node){
+        if(node == null){
+            return;
+        }
+
+        postOrderTraversal(node.getLeftChild());
+        postOrderTraversal(node.getRightChild());
+        System.out.print(node.getData() + ", ");
+    }
+
+    public void inOrderTraversal(TreeNode node) {
         if (node == null){
             return;
         }
 
-        printTreeInOrder(node.getLeftChild());
+        inOrderTraversal(node.getLeftChild());
         System.out.print(node.getData() + ",");
-        printTreeInOrder(node.getRightChild());
+        inOrderTraversal(node.getRightChild());
     }
 }
