@@ -172,6 +172,61 @@ public class BinaryTree {
         return true;
     }
 
+    static int countOfNodes = 0;
+    private static TreeNode findKthMaxRecursively(TreeNode root, int k){
+        if(root == null){
+            return null;
+        }
+
+        TreeNode node = findKthMaxRecursively(root.getRightChild(), k);
+        if(countOfNodes != k){
+            countOfNodes++;
+            node = root;
+        }
+
+        if(k == countOfNodes){
+            return node;
+        }
+        else{
+            return findKthMaxRecursively(root.getLeftChild(), k);
+        }
+    }
+
+    public static int findKthMax(TreeNode root, int k) {
+        TreeNode node = findKthMaxRecursively(root, k);
+        countOfNodes = 0;
+        if(node != null){
+            return node.getData();
+        }
+
+        return -1;
+    }
+
+    public static int findMinRecursive(TreeNode root) {
+        if(root == null) {
+            return Integer.MIN_VALUE;
+        }
+
+        if(root.getLeftChild() != null){
+            findMinRecursive(root.getLeftChild());
+        }
+
+        return root.getData();
+    }
+
+    public static int findMin(TreeNode root)
+    {
+        if(root ==  null){
+            return Integer.MIN_VALUE;
+        }
+
+        while (root.getLeftChild() != null){
+            root = root.getLeftChild();
+        }
+
+        return root.getData();
+    }
+
     private TreeNode findMinimumValueNodeInTree(TreeNode root) {
         TreeNode tempNode = root;
 
@@ -224,5 +279,43 @@ public class BinaryTree {
         inOrderTraversal(node.getLeftChild());
         System.out.print(node.getData() + ",");
         inOrderTraversal(node.getRightChild());
+    }
+
+    public static String findAncestors(TreeNode root, int k) {
+        if(root == null){
+            return "";
+        }
+
+        String ancestors = "";
+        TreeNode tempNode = root;
+        while(tempNode != null && tempNode.getData() != k){
+            ancestors = ancestors + tempNode.getData() + ",";
+            if(k <= tempNode.getData()){
+                tempNode = tempNode.getLeftChild();
+            }
+            else{
+                tempNode = tempNode.getRightChild();
+            }
+        }
+
+        if(tempNode == null){
+            return "";
+        }
+
+        return ancestors;
+    }
+
+    public static int findHeight(TreeNode root) {
+        if(root == null){
+            return 0;
+        }
+
+        int leftHeight = findHeight(root.getLeftChild());
+        int rightHeight = findHeight(root.getRightChild());
+        return Max(leftHeight, rightHeight) + 1;
+    }
+
+    private static int Max(int a, int b){
+        return (a >= b) ? a : b;
     }
 }

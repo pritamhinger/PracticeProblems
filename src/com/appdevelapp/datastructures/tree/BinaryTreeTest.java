@@ -24,7 +24,7 @@ class BinaryTreeTest {
         bst.add(5);
         bst.add(10);
         bst.add(14);
-        bst.add(2);
+        //bst.add(2);
     }
 
     @AfterEach
@@ -112,5 +112,67 @@ class BinaryTreeTest {
     void inOrderTraversal() {
         bst.inOrderTraversal(bst.getRoot());
         Assert.that(bst.getRoot().getData() == 6, "Failed");
+    }
+
+    @Test
+    void findMinRecursive() {
+        Assert.that(BinaryTree.findMin(bst.getRoot()) == 2, "Failed");
+        bst.add(1);
+        Assert.that(BinaryTree.findMin(bst.getRoot()) == 1, "Failed");
+    }
+
+    @Test
+    void findMin() {
+        Assert.that(BinaryTree.findMin(bst.getRoot()) == 2, "Failed");
+        bst.add(1);
+        Assert.that(BinaryTree.findMin(bst.getRoot()) == 1, "Failed");
+        bst.add(0);
+        Assert.that(BinaryTree.findMin(bst.getRoot()) == 0, "Failed");
+    }
+
+    @Test
+    void findKthMax() {
+        int value = BinaryTree.findKthMax(bst.getRoot(), 3);
+        System.out.println(value);
+        Assert.that(value == 10, "Failed");
+        value = BinaryTree.findKthMax(bst.getRoot(), 1);
+        System.out.println(value);
+        Assert.that(value == 14, "Failed");
+        value = BinaryTree.findKthMax(bst.getRoot(), 5);
+        System.out.println(value);
+        Assert.that(value == 8, "Failed");
+    }
+
+    @Test
+    void findAncestors() {
+        String ancestors = BinaryTree.findAncestors(bst.getRoot(), 10);
+        System.out.println(ancestors);
+        Assert.that( ancestors.equals("6,9,12,"), "FailedR");
+
+        ancestors = BinaryTree.findAncestors(bst.getRoot(), 8);
+        System.out.println(ancestors);
+        Assert.that( ancestors.equals("6,9,"), "FailedR");
+
+        ancestors = BinaryTree.findAncestors(bst.getRoot(), 5);
+        System.out.println(ancestors);
+        Assert.that( ancestors.equals("6,4,"), "FailedR");
+
+        ancestors = BinaryTree.findAncestors(bst.getRoot(), 7);
+        System.out.println(ancestors);
+        Assert.that( ancestors.equals(""), "FailedR");
+
+        bst.add(7);
+        ancestors = BinaryTree.findAncestors(bst.getRoot(), 7);
+        System.out.println(ancestors);
+        Assert.that( ancestors.equals("6,9,8,"), "FailedR");
+    }
+
+    @Test
+    void findHeight() {
+        inOrderTraversal();
+        System.out.println();
+        int height = BinaryTree.findHeight(bst.getRoot());
+        System.out.println(height);
+        Assert.that( --height == 3, "Failed");
     }
 }
