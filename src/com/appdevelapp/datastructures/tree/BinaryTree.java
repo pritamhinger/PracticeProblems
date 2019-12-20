@@ -1,5 +1,7 @@
 package com.appdevelapp.datastructures.tree;
 
+import com.appdevelapp.datastructures.queue.Queue;
+
 public class BinaryTree {
     public TreeNode getRoot() {
         return root;
@@ -317,5 +319,44 @@ public class BinaryTree {
 
     private static int Max(int a, int b){
         return (a >= b) ? a : b;
+    }
+
+    public static String findKNodes(TreeNode root, int k) throws Exception {
+
+        if(root == null || k == 0){
+            return "";
+        }
+
+        Queue<TreeNode> queue = new Queue<>(100);
+        queue.enqueue(root);
+        queue.enqueue(null);
+        int level = 0;
+        String str = "";
+        while (!queue.isEmpty()){
+            if(level > k){
+                break;
+            }
+
+            TreeNode currentNode = queue.dequeue();
+            if(currentNode == null){
+                level++;
+                queue.enqueue(null);
+                continue;
+            }
+
+            if(level == k) {
+                str += currentNode.getData() + ",";
+            }
+
+            if(currentNode.getLeftChild() != null){
+                queue.enqueue(currentNode.getLeftChild());
+            }
+
+            if(currentNode.getRightChild() != null){
+                queue.enqueue(currentNode.getRightChild());
+            }
+        }
+
+        return str;
     }
 }

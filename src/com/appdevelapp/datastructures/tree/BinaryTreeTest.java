@@ -175,4 +175,11 @@ class BinaryTreeTest {
         System.out.println(height);
         Assert.that( --height == 3, "Failed");
     }
+
+    @Test
+    void findKNodes() throws Exception {
+        Assert.that(BinaryTree.findKNodes(bst.getRoot(),1).equals("4,9,"), "Failed");
+        Assert.that(BinaryTree.findKNodes(bst.getRoot(),2).equals("2,5,8,12,"), "Failed");
+        Assert.that(BinaryTree.findKNodes(bst.getRoot(),3).equals("10,14,"), "Failed");
+    }
 }
