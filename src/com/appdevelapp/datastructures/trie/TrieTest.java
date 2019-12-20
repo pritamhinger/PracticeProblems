@@ -42,4 +42,14 @@ class TrieTest {
         Assert.that(trie.search("be"), "Failed");
         Assert.that(trie.search("bed"), "Failed");
     }
+
+    @Test
+    void delete() {
+        trie.insert("their");
+        trie.insert("bat");
+        trie.insert("the");
+        trie.delete("bat");
+        //trie.delete("their");
+        trie.delete("there");
+    }
 }

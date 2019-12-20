@@ -55,7 +55,63 @@ public class Trie {
         return node.isEndWord;
     }
 
-    public boolean delete(String key) {
-        return false;
+    public void delete(String key) {
+        if(key == null || root == null){
+            System.out.println("Invalid Trie or key to delete");
+            return;
+        }
+
+        deleteHelper(key, this.getRoot(), key.length(), 0);
+    }
+
+    private boolean deleteHelper(String key, TrieNode currentNode, int length, int level){
+        boolean deletedSelf = false;
+        if(currentNode == null){
+            System.out.println("Key doesn't existes");
+            return deletedSelf;
+        }
+
+        if(level == length){
+            if(hasNoChildren(currentNode)){
+                deletedSelf = true;
+                currentNode = null;
+            }
+            else{
+                currentNode.unMarkAsLeaf();
+                deletedSelf = false;
+            }
+        }
+        else{
+            TrieNode node = currentNode.children[getIndex(key.charAt(level))];
+            boolean childDeleted = deleteHelper(key, node, length, (level+1));
+            if(childDeleted){
+                currentNode.children[getIndex(key.charAt(level))] = null;
+                if(currentNode.isEndWord){
+                    deletedSelf = false;
+                }
+                else if(!hasNoChildren(currentNode)){
+                    deletedSelf= false;
+                }
+                else {
+                    currentNode = null;
+                    deletedSelf = true;
+                }
+            }
+            else{
+                deletedSelf = false;
+            }
+        }
+
+        return deletedSelf;
+    }
+
+    private boolean hasNoChildren(TrieNode currentNode){
+        for (int i = 0; i < currentNode.children.length; i++) {
+            if(currentNode.children[i] != null){
+                return false;
+            }
+        }
+
+        return true;
     }
 }
