@@ -5,6 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import sun.jvm.hotspot.utilities.Assert;
 
+import java.util.ArrayList;
+
 class TrieTest {
 
     Trie trie;
@@ -72,5 +74,37 @@ class TrieTest {
         Assert.that(Trie.totalWords(trie.getRoot()) == 3, "Failed");
         trie.delete("abc");
         Assert.that(Trie.totalWords(trie.getRoot()) == 2, "Failed");
+    }
+
+    @Test
+    void findWords() {
+        trie.insert("a");
+        trie.insert("the");
+        trie.insert("abc");
+        trie.insert("by");
+        trie.insert("their");
+        trie.insert("there");
+        trie.insert("answer");
+        trie.insert("any");
+        trie.insert("bye");
+        ArrayList<String> words = Trie.findWords(trie.getRoot());
+        for (String word:words) {
+            System.out.println(word);
+        }
+
+        Assert.that(words.size() == 9, "Failed");
+    }
+
+    @Test
+    void sortArray() {
+        String[] arr = {"the", "a", "there", "answer", "any", "by", "bye", "their", "abc"};
+        String[] sortedArray = {"a", "abc", "answer", "any", "by", "bye", "the", "their", "there"};
+        ArrayList<String> output = Trie.sortArray(arr);
+        Assert.that(arr.length == output.size(), "Failed");
+        Assert.that(arr.length == sortedArray.length, "Failed");
+        for (int i = 0; i < sortedArray.length; i++) {
+            System.out.println(output.get(i));
+            Assert.that(sortedArray[i].equals(output.get(i)), "Failed");
+        }
     }
 }

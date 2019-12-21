@@ -2,6 +2,8 @@ package com.appdevelapp.datastructures.trie;
 
 import com.appdevelapp.datastructures.queue.Queue;
 
+import java.util.ArrayList;
+
 public class Trie {
     public TrieNode getRoot() {
         return root;
@@ -164,5 +166,46 @@ public class Trie {
         }
 
         return count;
+    }
+
+    private static void getWords(TrieNode root, ArrayList<String> result, int level, char[] str) {
+        if(root.isEndWord){
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i <= level; i++) {
+                sb.append(str[i]);
+            }
+
+            result.add(sb.toString());
+        }
+
+        for (int i = 0; i < root.children.length; i++) {
+            if(root.children[i] != null){
+                str[level+1] = (char)('a' + i);
+                getWords(root.children[i], result, (level+1), str);
+            }
+        }
+    }
+
+    public static ArrayList < String > findWords(TrieNode root) {
+        ArrayList<String> result = new ArrayList<String>();
+        char[] characters = new char[100];
+        for (int i = 0; i < root.children.length; i++) {
+            if(root.children[i] != null){
+                characters[0] = (char)('a' + i);
+                getWords(root.children[i], result, 0, characters);
+            }
+        }
+        return result;
+    }
+
+    public static ArrayList<String> sortArray(String[] arr) {
+        ArrayList<String> result = new ArrayList<String>();
+        Trie trie = new Trie();
+        for (String word: arr) {
+            trie.insert(word);
+        }
+
+        result = findWords(trie.getRoot());
+        return result;
     }
 }
