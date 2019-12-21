@@ -107,4 +107,12 @@ class TrieTest {
             Assert.that(sortedArray[i].equals(output.get(i)), "Failed");
         }
     }
+
+    @Test
+    void isFormationPossible() {
+        String dict[] = {"the" ,"hello", "there", "answer", "any", "Dragon","world", "their", "inc"};
+        String word = "helloworld";
+
+        Assert.that(Trie.isFormationPossible(dict, word), "Failed");
+    }
 }

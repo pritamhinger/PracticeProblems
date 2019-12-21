@@ -208,4 +208,21 @@ public class Trie {
         result = findWords(trie.getRoot());
         return result;
     }
+
+    public static boolean isFormationPossible(String[] dict,String word) {
+        Trie trie = new Trie();
+        for (String item: dict) {
+            trie.insert(item);
+        }
+
+        for (int i = 0; i < word.length(); i++) {
+            String left = word.substring(0, i);
+            String right = word.substring(i, word.length());
+            if(trie.search(left) && trie.search(right)){
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
