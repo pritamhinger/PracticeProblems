@@ -1,5 +1,7 @@
 package com.appdevelapp.datastructures.trie;
 
+import com.appdevelapp.datastructures.queue.Queue;
+
 public class Trie {
     public TrieNode getRoot() {
         return root;
@@ -113,5 +115,54 @@ public class Trie {
         }
 
         return true;
+    }
+
+    public static int totalWords(TrieNode root)
+    {
+        int result = 0;
+
+        if(root.isEndWord){
+            System.out.println("Found Word");
+             ++result;
+        }
+
+        for (int i = 0; i < root.children.length; i++) {
+            if (root.children[i] != null) {
+                System.out.println("Index is " + i);
+                result += totalWords(root.children[i]);
+            }
+        }
+
+        return result;
+    }
+    public static int totalWordsIterative(TrieNode root) throws Exception {
+        if(root == null){
+            return 0;
+        }
+
+        Queue<TrieNode> queue = new Queue<>(100);
+        for (int i = 0; i < root.children.length; i++) {
+            if(root.children[i] != null){
+                queue.enqueue(root.children[i]);
+            }
+        }
+
+        int count = 0;
+        while (!queue.isEmpty()){
+            TrieNode node = queue.dequeue();
+            if(node != null){
+                if(node.isEndWord){
+                    count++;
+                }
+
+                for (int i = 0; i < node.children.length; i++) {
+                    if(node.children[i] != null){
+                        queue.enqueue(node.children[i]);
+                    }
+                }
+            }
+        }
+
+        return count;
     }
 }

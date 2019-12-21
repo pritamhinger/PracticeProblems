@@ -5,8 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import sun.jvm.hotspot.utilities.Assert;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class TrieTest {
 
     Trie trie;
@@ -51,5 +49,28 @@ class TrieTest {
         trie.delete("bat");
         //trie.delete("their");
         trie.delete("there");
+    }
+
+    @Test
+    void totalWords() throws Exception {
+        trie.insert("a");
+        Assert.that(Trie.totalWordsIterative(trie.getRoot()) == 1, "Failed");
+        trie.insert("abc");
+        Assert.that(Trie.totalWordsIterative(trie.getRoot()) == 2, "Failed");
+        trie.insert("the");
+        Assert.that(Trie.totalWordsIterative(trie.getRoot()) == 3, "Failed");
+        trie.delete("abc");
+        Assert.that(Trie.totalWordsIterative(trie.getRoot()) == 2, "Failed");
+    }
+
+    @Test
+    void testTotalWords() {
+        trie.insert("a");
+        trie.insert("abc");
+        Assert.that(Trie.totalWords(trie.getRoot()) == 2, "Failed");
+        trie.insert("the");
+        Assert.that(Trie.totalWords(trie.getRoot()) == 3, "Failed");
+        trie.delete("abc");
+        Assert.that(Trie.totalWords(trie.getRoot()) == 2, "Failed");
     }
 }
