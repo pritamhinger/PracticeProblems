@@ -1,7 +1,7 @@
 package com.appdevelapp.datastructures.heap;
 
 public class Heap {
-    public void buildMaxHeap(int[] heapArray, int heapSize)
+    public static void buildMaxHeap(int[] heapArray, int heapSize)
     {
         // swap largest child to parent node
         for (int i = (heapSize - 1) / 2; i >= 0; i--){
@@ -9,7 +9,7 @@ public class Heap {
         }
     }
 
-    private void maxHeapify(int[] heapArray, int index, int heapSize){
+    private static void maxHeapify(int[] heapArray, int index, int heapSize){
         int largest = index;
         while (largest < heapSize / 2){      // check parent nodes only
             int left = (2 * index) + 1;       //left child
@@ -32,13 +32,13 @@ public class Heap {
         } //end of while
     }
 
-    public void buildMinHeap(int[] heapArray, int heapSize) {
+    public static void buildMinHeap(int[] heapArray, int heapSize) {
         for (int i = (heapSize - 1) / 2; i >= 0; i--) {
             minHeapify(heapArray, i, heapSize);
         }
     }
 
-    private void minHeapify(int[] heapArray, int index, int heapSize) {
+    private static void minHeapify(int[] heapArray, int index, int heapSize) {
         int largest = index;
 
         while (index < heapSize / 2) {
@@ -63,5 +63,42 @@ public class Heap {
                 break;
             }
         }
+    }
+
+    public static int[] findKSmallest(int[] arr,int k) {
+
+        int[] result = new int[k];
+        int heapSize = arr.length;
+        for (int i = 0; i < k; i++) {
+            result[i] = removeMin(arr, heapSize);
+            heapSize--;
+        }
+
+        return result;
+    }
+
+    private static int removeMin(int[] arr, int heapSize){
+        buildMinHeap(arr, heapSize);
+        int min = arr[0];
+        arr[0] = arr[heapSize-1];
+        return min;
+    }
+
+    public static int[] findKLargest(int[] arr,int k)
+    {
+        int[] result = new int[k];
+        int heapSize = arr.length;
+        for (int i = 0; i < k; i++) {
+            result[i] = removeMax(arr, heapSize);
+            heapSize--;
+        }
+        return result;
+    }
+
+    private static int removeMax(int[] arr, int heapSize){
+        buildMaxHeap(arr, heapSize);
+        int max = arr[0];
+        arr[0] = arr[heapSize-1];
+        return max;
     }
 }
