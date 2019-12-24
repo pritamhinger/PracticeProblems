@@ -71,4 +71,36 @@ class LinkedListProblemsTest {
 
 
     }
+
+    @Test
+    void swap_nth_node() {
+        SinglyLinkedList list2 = new SinglyLinkedList();
+        list2.InsertAtStart(5);
+        list2.InsertAtStart(4);
+        list2.InsertAtStart(3);
+        list2.InsertAtStart(2);
+        list2.InsertAtStart(1);
+        list2.PrintList();
+        list2.headNode = LinkedListProblems.swap_nth_node(list2.headNode, 3);
+        list2.PrintList();;
+
+
+    }
+
+    @Test
+    void merge_sort() {
+        SinglyLinkedList<Integer> list3 = new SinglyLinkedList<>();
+        list3.InsertAtStart(29);
+        list3.InsertAtStart(23);
+        list3.InsertAtStart(82);
+        list3.InsertAtStart(11);
+        list3.InsertAtStart(4);
+        list3.InsertAtStart(3);
+        list3.InsertAtStart(21);
+
+        list3.PrintList();
+        list3.headNode = LinkedListProblems.merge_sort(list3.headNode);
+        list3.PrintList();
+
+    }
 }
