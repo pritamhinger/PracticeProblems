@@ -5,6 +5,7 @@ import com.appdevelapp.datastructures.linkedlist.SinglyLinkedList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import sun.awt.image.ImageWatched;
 import sun.jvm.hotspot.utilities.Assert;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -102,5 +103,25 @@ class LinkedListProblemsTest {
         list3.headNode = LinkedListProblems.merge_sort(list3.headNode);
         list3.PrintList();
 
+    }
+
+    @Test
+    void reverse_even_nodes() {
+        SinglyLinkedList<Integer> list4 = new SinglyLinkedList<>();
+        list4.InsertAtStart(1);
+        list4.InsertAtStart(2);
+        list4.InsertAtStart(3);
+        list4.InsertAtStart(4);
+        list4.InsertAtStart(5);
+        list4.InsertAtStart(6);
+        list4.PrintList();
+        list4.headNode = LinkedListProblems.reverse_even_nodes(list4.headNode);
+        list4.PrintList();
+        list4.InsertAtStart(7);
+        list4.InsertAtStart(8);
+        list4.InsertAtStart(9);
+        list4.PrintList();
+        list4.headNode = LinkedListProblems.reverse_even_nodes(list4.headNode);
+        list4.PrintList();
     }
 }

@@ -188,6 +188,41 @@ public class LinkedListProblems {
 
         return slowPtr;
     }
+
+    public static SLLNode<Integer> reverse_even_nodes(SLLNode<Integer> head) {
+        if(head == null){
+            return null;
+        }
+
+        SLLNode<Integer> evenHead = null;
+        SLLNode<Integer> curNode = head;
+        while (curNode != null && curNode.nextNode != null){
+            SLLNode<Integer> tempNode = curNode.nextNode;
+            curNode.nextNode = tempNode.nextNode;
+            tempNode.nextNode = evenHead;
+            evenHead = tempNode;
+            curNode = curNode.nextNode;
+        }
+
+        curNode = head;
+        SLLNode<Integer> evenCurNode = evenHead;
+        SLLNode<Integer> previousNode = null;
+        while (curNode != null && evenCurNode != null){
+            SLLNode<Integer> tempNode = curNode.nextNode;
+            curNode.nextNode = evenCurNode;
+            curNode = curNode.nextNode;
+            evenCurNode = evenCurNode.nextNode;
+            curNode.nextNode = tempNode;
+            previousNode = curNode;
+            curNode = curNode.nextNode;
+        }
+
+        if(curNode != null){
+            previousNode.nextNode = curNode;
+        }
+
+        return head;
+    }
 }
 
 
