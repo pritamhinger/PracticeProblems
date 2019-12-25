@@ -16,12 +16,11 @@ class LinkedListProblemsTest {
     @BeforeEach
     void setUp() {
         list = new SinglyLinkedList<>();
-        list.InsertAtStart(1);
-        list.InsertAtStart(1);
-        list.InsertAtStart(2);
+        list.InsertAtStart(5);
+        list.InsertAtStart(4);
         list.InsertAtStart(3);
-        list.InsertAtStart(4);
-        list.InsertAtStart(4);
+        list.InsertAtStart(2);
+        list.InsertAtStart(1);
     }
 
     @AfterEach
@@ -123,5 +122,25 @@ class LinkedListProblemsTest {
         list4.PrintList();
         list4.headNode = LinkedListProblems.reverse_even_nodes(list4.headNode);
         list4.PrintList();
+    }
+
+    @Test
+    void rotate_list() {
+        list.PrintList();
+        list.headNode = LinkedListProblems.rotate_list(list.headNode, 4);
+        list.PrintList();
+
+        list.InsertAtStart(6);
+        list.PrintList();
+        list.headNode = LinkedListProblems.rotate_list(list.headNode, -19);
+        list.PrintList();
+
+    }
+
+    @Test
+    void reverse_k_nodes() {
+        list.PrintList();
+        list.headNode = LinkedListProblems.reverse_k_nodes(list.headNode, 4);
+        list.PrintList();
     }
 }

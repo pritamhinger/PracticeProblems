@@ -223,6 +223,95 @@ public class LinkedListProblems {
 
         return head;
     }
+
+    public static SLLNode<Integer> rotate_list(SLLNode<Integer> head, int n) {
+        //TODO: Write - Your - Code
+        int length = 0;
+        SLLNode<Integer> tempNode = head;
+        while(tempNode != null){
+            length++;
+            tempNode = tempNode.nextNode;
+        }
+
+        if(length == 0){
+            return null;
+        }
+
+        n = n% length;
+        if(n < 0){
+            n = n + length;
+        }
+
+        int moveLength = length - n;
+        tempNode = head;
+        while(moveLength > 1){
+            moveLength--;
+            tempNode = tempNode.nextNode;
+        }
+
+        SLLNode<Integer> newHead = tempNode.nextNode;
+        tempNode.nextNode = null;
+
+        SLLNode<Integer> curNode = newHead;
+        while(curNode.nextNode != null){
+            curNode = curNode.nextNode;
+        }
+
+        curNode.nextNode = head;
+        head = newHead;
+        return head;
+    }
+
+    static SLLNode<Integer> reverse_k_nodes(SLLNode<Integer> head, int k) {
+
+        if(k == 1){
+            return head;
+        }
+
+        int length = 0;
+        SLLNode<Integer> tempNode = head;
+        while(tempNode != null){
+            length++;
+            tempNode = tempNode.nextNode;
+        }
+
+        SLLNode<Integer> previousNode = null;
+        tempNode = head;
+        SLLNode<Integer> newHead = null;
+        SLLNode<Integer> currentTailNode = null;
+        for (int i = 0; i < length; i = i+k) {
+            SLLNode<Integer> currentHead = tempNode;
+            int j=0;
+            while ((j < k && tempNode != null)){
+                previousNode = tempNode;
+                tempNode = tempNode.nextNode;
+                j++;
+            }
+
+            previousNode.nextNode = null;
+            if(newHead == null){
+                newHead = reverse_list(currentHead);
+                currentTailNode = getTailNode(newHead);
+            }
+            else{
+                currentHead = reverse_list(currentHead);
+                currentTailNode.nextNode = currentHead;
+                currentTailNode = getTailNode(currentHead);
+            }
+        }
+
+        return newHead;
+    }
+
+    private static SLLNode<Integer> getTailNode(SLLNode<Integer> head){
+        SLLNode<Integer> tempNode = head;
+        while(tempNode.nextNode != null){
+            tempNode = tempNode.nextNode;
+        }
+
+        return tempNode;
+    }
+
 }
 
 
