@@ -312,6 +312,134 @@ public class LinkedListProblems {
         return tempNode;
     }
 
+    static SLLNode<Integer> add_integers(SLLNode<Integer> integer1,SLLNode<Integer> integer2) {
+        int carry = 0;
+        SLLNode<Integer> newHead = null;
+        SLLNode<Integer> curNode = null;
+        int value = 0;
+        while(integer1 != null && integer2 != null){
+            int sum = integer1.data + integer2.data + carry;
+            carry = sum/10;
+            value = sum%10;
+            SLLNode<Integer> newNode = new SLLNode<Integer>(value);
+            newNode.data = value;
+            newNode.nextNode = null;
+
+            if(newHead == null){
+                newHead = newNode;
+                curNode = newNode;
+            }
+            else{
+                curNode.nextNode = newNode;
+                curNode = newNode;
+            }
+
+            integer1 = integer1.nextNode;
+            integer2 = integer2.nextNode;
+        }
+
+        while(integer1 != null){
+            int sum = integer1.data + carry;
+            carry = sum/10;
+            value = sum%10;
+            SLLNode<Integer> newNode = new SLLNode<Integer>(value);
+            newNode.data = value;
+            newNode.nextNode = null;
+
+            if(newHead == null){
+                newHead = newNode;
+                curNode = newNode;
+            }
+            else{
+                curNode.nextNode = newNode;
+                curNode = newNode;
+            }
+
+            integer1 = integer1.nextNode;
+
+        }
+
+        while(integer2 != null){
+            int sum = integer2.data + carry;
+            carry = sum/10;
+            value = sum%10;
+            SLLNode<Integer> newNode = new SLLNode<Integer>(value);
+            newNode.data = value;
+            newNode.nextNode = null;
+
+            if(newHead == null){
+                newHead = newNode;
+                curNode = newNode;
+            }
+            else{
+                curNode.nextNode = newNode;
+                curNode = newNode;
+            }
+
+            integer1 = integer2.nextNode;
+
+        }
+
+        if(carry > 0){
+            SLLNode<Integer> newNode = new SLLNode<Integer>(carry);
+            newNode.data = carry;
+            newNode.nextNode = null;
+
+            curNode.nextNode = newNode;
+        }
+
+        return newHead;
+    }
+
+    public static LinkedListNode deep_copy_arbitrary_pointer(LinkedListNode head) {
+        if (head == null) {
+            return null;
+        }
+
+        LinkedListNode curNode = head;
+        while (curNode != null) {
+            LinkedListNode newNode = new LinkedListNode(curNode.data);
+            newNode.next = curNode.next;
+            curNode.next = newNode.next;
+            curNode = newNode.next;
+        }
+
+        curNode = head;
+        while (curNode != null) {
+            if (curNode.arbitrary_pointer != null) {
+                curNode.next.arbitrary_pointer = curNode.arbitrary_pointer.next;
+            }
+
+            curNode = curNode.next.next;
+        }
+
+        curNode = head;
+        LinkedListNode newHead = curNode.next;
+        LinkedListNode copiedCurNode = newHead;
+        while (curNode != null) {
+            curNode.next = copiedCurNode.next;
+            if(curNode.next != null) {
+                copiedCurNode.next = curNode.next.next;
+            }
+
+            curNode = curNode.next;
+            copiedCurNode = copiedCurNode.next;
+        }
+
+        return newHead;
+    }
+}
+
+class LinkedListNode{
+    int data;
+    LinkedListNode next;
+    LinkedListNode arbitrary_pointer;
+
+    LinkedListNode(int data){
+        this.data = data;
+        this.next = null;
+        this.arbitrary_pointer = null;
+    }
 }
 
 

@@ -5,6 +5,7 @@ import com.appdevelapp.datastructures.linkedlist.SinglyLinkedList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.omg.PortableInterceptor.INACTIVE;
 import sun.awt.image.ImageWatched;
 import sun.jvm.hotspot.utilities.Assert;
 
@@ -142,5 +143,36 @@ class LinkedListProblemsTest {
         list.PrintList();
         list.headNode = LinkedListProblems.reverse_k_nodes(list.headNode, 4);
         list.PrintList();
+    }
+
+    @Test
+    void add_integers() {
+        SinglyLinkedList interger1 = new SinglyLinkedList();
+        interger1.InsertAtStart(9);
+        interger1.InsertAtStart(9);
+        interger1.InsertAtStart(0);
+        interger1.InsertAtStart(1);
+        interger1.PrintList();
+        SinglyLinkedList integer2 = new SinglyLinkedList();
+        integer2.InsertAtStart(2);
+        integer2.InsertAtStart(8);
+        integer2.InsertAtStart(8);
+        integer2.PrintList();
+        interger1.headNode = LinkedListProblems.add_integers(interger1.headNode, integer2.headNode);
+        interger1.PrintList();
+    }
+
+    @Test
+    void deep_copy_arbitrary_pointer() {
+        LinkedListNode head = new LinkedListNode(7);
+        LinkedListNode secondNode = new LinkedListNode(14);
+        LinkedListNode thirdNode = new LinkedListNode(21);
+        head.next = secondNode;
+        secondNode.next = thirdNode;
+        head.arbitrary_pointer = thirdNode;
+        thirdNode.arbitrary_pointer = head;
+
+        LinkedListNode newHead = LinkedListProblems.deep_copy_arbitrary_pointer(head);
+        Assert.that(newHead.arbitrary_pointer.data == 21, "Failed");
     }
 }
