@@ -1,6 +1,7 @@
 package com.appdevelapp.datastructures.tree;
 
 import com.appdevelapp.datastructures.queue.Queue;
+import com.appdevelapp.datastructures.stack.Stack;
 
 public class BinaryTree {
     public TreeNode getRoot() {
@@ -273,6 +274,39 @@ public class BinaryTree {
         System.out.print(node.getData() + ", ");
     }
 
+    public int LevelOrderTraversal(TreeNode root) throws Exception {
+        if(root == null){
+            return 0;
+        }
+
+        Queue<TreeNode> queue = new Queue<>(10);
+        queue.enqueue(root);
+        queue.enqueue(null);
+        int level = 0;
+        while (!queue.isEmpty()){
+            TreeNode curNode = queue.dequeue();
+            if(curNode == null){
+                level++;
+                System.out.println();
+                if(!queue.isEmpty()) {
+                    queue.enqueue(null);
+                }
+                continue;
+            }
+
+            System.out.print(curNode.getData() + ",");
+            if(curNode.getLeftChild() != null){
+                queue.enqueue(curNode.getLeftChild());
+            }
+
+            if(curNode.getRightChild() != null){
+                queue.enqueue(curNode.getRightChild());
+            }
+        }
+
+        return level;
+    }
+
     public void inOrderTraversal(TreeNode node) {
         if (node == null){
             return;
@@ -281,6 +315,25 @@ public class BinaryTree {
         inOrderTraversal(node.getLeftChild());
         System.out.print(node.getData() + ",");
         inOrderTraversal(node.getRightChild());
+    }
+
+    public void inOrderIteratively() throws Exception {
+        if(root == null){
+            return;
+        }
+
+        Stack<TreeNode> stack = new Stack<>(10);
+        while (root != null || !stack.isEmpty()){
+            while (root != null){
+                stack.push(root);
+                root = root.getLeftChild();
+            }
+
+            root = stack.pop();
+            System.out.println(root.getData() + " --> ");
+
+            root = root.getRightChild();
+        }
     }
 
     public static String findAncestors(TreeNode root, int k) {
@@ -316,6 +369,8 @@ public class BinaryTree {
         int rightHeight = findHeight(root.getRightChild());
         return Max(leftHeight, rightHeight) + 1;
     }
+
+    //public static void
 
     private static int Max(int a, int b){
         return (a >= b) ? a : b;

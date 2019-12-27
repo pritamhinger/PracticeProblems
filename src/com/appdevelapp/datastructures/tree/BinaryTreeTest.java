@@ -182,4 +182,16 @@ class BinaryTreeTest {
         Assert.that(BinaryTree.findKNodes(bst.getRoot(),2).equals("2,5,8,12,"), "Failed");
         Assert.that(BinaryTree.findKNodes(bst.getRoot(),3).equals("10,14,"), "Failed");
     }
+
+    @Test
+    void inOrderIteratively() throws Exception {
+        bst.inOrderTraversal(bst.getRoot());
+        bst.inOrderIteratively();
+    }
+
+    @Test
+    void levelOrderTraversal() throws Exception {
+        int levelCount = bst.LevelOrderTraversal(bst.getRoot());
+        Assert.that(levelCount == 4, "Failed");
+    }
 }
