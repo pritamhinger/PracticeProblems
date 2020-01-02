@@ -1,5 +1,7 @@
 package com.appdevelapp.problems.leetcode;
 
+import java.util.Comparator;
+
 public class ReorderLogFiles {
     public String[] reorderLogFiles(String[] logs) {
         BTree letterTree = new BTree();
@@ -52,6 +54,14 @@ class BTreeNode{
         this.index = index;
         this.left = null;
         this.right = null;
+    }
+}
+
+class LetterLogComparer implements Comparator<BTreeNode> {
+    @Override
+    public int compare(BTreeNode o1, BTreeNode o2) {
+
+        return 0;
     }
 }
 
