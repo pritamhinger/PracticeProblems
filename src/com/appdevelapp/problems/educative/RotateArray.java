@@ -1,8 +1,5 @@
 package com.appdevelapp.problems.educative;
 
-import org.omg.PortableInterceptor.INACTIVE;
-
-import java.util.Arrays;
 import java.util.List;
 
 public class RotateArray {

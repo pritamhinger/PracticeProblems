@@ -5,11 +5,7 @@ import com.appdevelapp.datastructures.linkedlist.SinglyLinkedList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.omg.PortableInterceptor.INACTIVE;
-import sun.awt.image.ImageWatched;
 import sun.jvm.hotspot.utilities.Assert;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class LinkedListProblemsTest {
 

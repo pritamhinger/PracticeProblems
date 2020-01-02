@@ -1,7 +1,6 @@
 package com.appdevelapp.datastructures.stack;
 
 import com.appdevelapp.datastructures.queue.Queue;
-import com.apple.laf.AquaEditorPaneUI;
 
 public class ReverseKItemsInQueue {
     public static <V> void reverseK(Queue<V> queue, int k) throws Exception {

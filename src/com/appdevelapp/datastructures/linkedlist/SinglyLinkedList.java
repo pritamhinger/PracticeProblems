@@ -1,7 +1,5 @@
 package com.appdevelapp.datastructures.linkedlist;
 
-import jdk.internal.org.objectweb.asm.commons.JSRInlinerAdapter;
-
 import java.util.HashSet;
 
 public class SinglyLinkedList<T> {

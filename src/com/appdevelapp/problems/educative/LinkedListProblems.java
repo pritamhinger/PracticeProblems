@@ -1,7 +1,6 @@
 package com.appdevelapp.problems.educative;
 
 import com.appdevelapp.datastructures.linkedlist.SLLNode;
-import org.omg.PortableInterceptor.INACTIVE;
 
 public class LinkedListProblems {
 

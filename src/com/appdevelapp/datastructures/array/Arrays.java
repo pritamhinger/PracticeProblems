@@ -1,12 +1,7 @@
 package com.appdevelapp.datastructures.array;
 
-import com.sun.tools.javac.util.Convert;
-import org.junit.jupiter.api.parallel.Execution;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 
 public class Arrays {
     public static boolean OneDimensionalArrayInitializationExample(){

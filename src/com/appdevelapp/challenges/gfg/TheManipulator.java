@@ -1,9 +1,5 @@
 package com.appdevelapp.challenges.gfg;
 
-import com.sun.org.apache.xml.internal.resolver.readers.SAXCatalogParser;
-import javafx.beans.binding.StringBinding;
-import jdk.nashorn.internal.runtime.regexp.joni.ScanEnvironment;
-
 import java.util.Scanner;
 
 public class TheManipulator {
