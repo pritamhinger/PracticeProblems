@@ -4,8 +4,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class TreesProblemsTest {
 
     BinaryTreeNode root = null;
@@ -27,12 +25,17 @@ class TreesProblemsTest {
     }
 
     @Test
-    void inOrderTravesal() throws Exception {
-        TreesProblems.inOrderTravesal(root);
+    void inOrderTraversal() throws Exception {
+        TreesProblems.inOrderTraversal(root);
     }
 
     @Test
     void display_tree_perimeter() throws Exception {
         TreesProblems.display_tree_perimeter(root);
+    }
+
+    @Test
+    void populate_sibling_pointers() throws Exception {
+        TreesProblems.populate_sibling_pointers(root);
     }
 }

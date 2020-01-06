@@ -4,7 +4,7 @@ import com.appdevelapp.datastructures.queue.Queue;
 import com.appdevelapp.datastructures.stack.Stack;
 
 public class TreesProblems {
-    public static void inOrderTravesal(BinaryTreeNode root) throws Exception {
+    public static void inOrderTraversal(BinaryTreeNode root) throws Exception {
         BinaryTreeInorderIterator iterator = new BinaryTreeInorderIterator(root);
         while (iterator.hasNext()){
             System.out.print(iterator.getNext().data + ",");
@@ -20,6 +20,51 @@ public class TreesProblems {
             }
 
             PrintRightEdge(root);
+        }
+    }
+
+    public static void populate_sibling_pointers(BinaryTreeNode root) throws Exception {
+        if(root == null){
+            return;
+        }
+
+        if(root.left == null && root.right == null){
+            root.sibling = null;
+            return;
+        }
+
+        Queue<BinaryTreeNode> queue = new Queue<>(100);
+        queue.enqueue(root);
+        queue.enqueue(null);
+        BinaryTreeNode previousNode = null;
+        while (!queue.isEmpty()){
+            BinaryTreeNode curNode = queue.dequeue();
+            if(previousNode != null){
+                previousNode.sibling = curNode;
+                System.out.print("Setting Sibling of " + previousNode.data);
+                if(curNode != null){
+                    System.out.println(" to " + curNode.data);
+                }
+                else{
+                    System.out.println(" to NULL");
+                }
+            }
+
+            previousNode = curNode;
+            if(curNode == null){
+                if(!queue.isEmpty()){
+                    queue.enqueue(null);
+                }
+                continue;
+            }
+
+            if(curNode.left != null){
+                queue.enqueue(curNode.left);
+            }
+
+            if(curNode.right != null){
+                queue.enqueue(curNode.right);
+            }
         }
     }
 
@@ -116,10 +161,12 @@ class BinaryTreeNode{
     int data;
     BinaryTreeNode left;
     BinaryTreeNode right;
+    BinaryTreeNode sibling;
 
     BinaryTreeNode(int data){
         this.data = data;
         this.left = null;
         this.right = null;
+        this.sibling = null;
     }
 }
