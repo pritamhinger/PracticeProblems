@@ -3,19 +3,22 @@ package com.appdevelapp.problems.educative;
 import com.appdevelapp.datastructures.queue.Queue;
 import com.appdevelapp.datastructures.stack.Stack;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 public class TreesProblems {
     public static void inOrderTraversal(BinaryTreeNode root) throws Exception {
         BinaryTreeInorderIterator iterator = new BinaryTreeInorderIterator(root);
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             System.out.print(iterator.getNext().data + ",");
         }
     }
 
     public static void display_tree_perimeter(BinaryTreeNode root) throws Exception {
-        if(root != null){
+        if (root != null) {
             PrintLeftEdge(root);
 
-            if(root.left != null || root.right != null){
+            if (root.left != null || root.right != null) {
                 PrintAllLeafNodes(root);
             }
 
@@ -24,11 +27,11 @@ public class TreesProblems {
     }
 
     public static void populate_sibling_pointers(BinaryTreeNode root) throws Exception {
-        if(root == null){
+        if (root == null) {
             return;
         }
 
-        if(root.left == null && root.right == null){
+        if (root.left == null && root.right == null) {
             root.sibling = null;
             return;
         }
@@ -37,47 +40,70 @@ public class TreesProblems {
         queue.enqueue(root);
         queue.enqueue(null);
         BinaryTreeNode previousNode = null;
-        while (!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             BinaryTreeNode curNode = queue.dequeue();
-            if(previousNode != null){
+            if (previousNode != null) {
                 previousNode.sibling = curNode;
                 System.out.print("Setting Sibling of " + previousNode.data);
-                if(curNode != null){
+                if (curNode != null) {
                     System.out.println(" to " + curNode.data);
-                }
-                else{
+                } else {
                     System.out.println(" to NULL");
                 }
             }
 
             previousNode = curNode;
-            if(curNode == null){
-                if(!queue.isEmpty()){
+            if (curNode == null) {
+                if (!queue.isEmpty()) {
                     queue.enqueue(null);
                 }
                 continue;
             }
 
-            if(curNode.left != null){
+            if (curNode.left != null) {
                 queue.enqueue(curNode.left);
             }
 
-            if(curNode.right != null){
+            if (curNode.right != null) {
                 queue.enqueue(curNode.right);
             }
         }
     }
 
-    private static void PrintLeftEdge(BinaryTreeNode root){
-        while (root != null){
+    private static final int MARKER = Integer.MIN_VALUE;
+
+    public static void serialize(BinaryTreeNode node, ObjectOutputStream stream) throws java.io.IOException {
+        if(node == null){
+            stream.writeInt(MARKER);
+            return;
+        }
+
+        stream.writeInt(node.data);
+        serialize(node.left, stream);
+        serialize(node.right, stream);
+    }
+
+    public static BinaryTreeNode deserialize(ObjectInputStream stream) throws java.io.IOException {
+        //TODO: Write - Your - Code
+        int value = stream.readInt();
+        if(value == MARKER){
+            return null;
+        }
+
+        BinaryTreeNode node = new BinaryTreeNode(value);
+        node.left = deserialize(stream);
+        node.right = deserialize(stream);
+        return node;
+    }
+
+    private static void PrintLeftEdge(BinaryTreeNode root) {
+        while (root != null) {
             int value = root.data;
-            if(root.left != null){
+            if (root.left != null) {
                 root = root.left;
-            }
-            else if(root.right != null){
+            } else if (root.right != null) {
                 root = root.right;
-            }
-            else{
+            } else {
                 break;
             }
 
@@ -88,17 +114,17 @@ public class TreesProblems {
     private static void PrintAllLeafNodes(BinaryTreeNode root) throws Exception {
         Queue<BinaryTreeNode> queue = new Queue<>(100);
         queue.enqueue(root);
-        while (!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             BinaryTreeNode curNode = queue.dequeue();
-            if(curNode.left != null){
+            if (curNode.left != null) {
                 queue.enqueue(curNode.left);
             }
 
-            if(curNode.right != null){
+            if (curNode.right != null) {
                 queue.enqueue(curNode.right);
             }
 
-            if(curNode.left == null && curNode.right == null){
+            if (curNode.left == null && curNode.right == null) {
                 System.out.print(curNode.data + " --> ");
             }
         }
@@ -106,22 +132,20 @@ public class TreesProblems {
 
     private static void PrintRightEdge(BinaryTreeNode root) throws Exception {
         Stack<Integer> stack = new Stack<>(100);
-        while (root != null){
+        while (root != null) {
             int value = root.data;
-            if(root.right != null){
+            if (root.right != null) {
                 root = root.right;
-            }
-            else if(root.left != null){
+            } else if (root.left != null) {
                 root = root.left;
-            }
-            else{
+            } else {
                 break;
             }
 
             stack.push(value);
         }
 
-        while(!stack.isEmpty()){
+        while (!stack.isEmpty()) {
             System.out.print(stack.pop() + " --> ");
         }
     }
