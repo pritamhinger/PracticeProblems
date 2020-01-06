@@ -96,6 +96,39 @@ public class TreesProblems {
         return node;
     }
 
+    public static void populate_all_sibling_pointers(BinaryTreeNode root) throws Exception {
+        if (root == null) {
+            return;
+        }
+
+        Queue<BinaryTreeNode> queue = new Queue<>(100);
+        queue.enqueue(root);
+        BinaryTreeNode prevNode = null;
+        while (!queue.isEmpty()) {
+            BinaryTreeNode curNode = queue.dequeue();
+            if(prevNode != null){
+                prevNode.sibling = curNode;
+            }
+            if(curNode == null){
+                continue;
+            }
+
+            if(curNode.left != null){
+                queue.enqueue(curNode.left);
+            }
+
+            if(curNode.right != null){
+                queue.enqueue(curNode.right);
+            }
+
+            prevNode = curNode;
+        }
+
+        if(prevNode != null){
+            prevNode.sibling = null;
+        }
+    }
+
     private static void PrintLeftEdge(BinaryTreeNode root) {
         while (root != null) {
             int value = root.data;
