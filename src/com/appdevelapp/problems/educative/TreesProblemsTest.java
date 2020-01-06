@@ -30,4 +30,9 @@ class TreesProblemsTest {
     void inOrderTravesal() throws Exception {
         TreesProblems.inOrderTravesal(root);
     }
+
+    @Test
+    void display_tree_perimeter() throws Exception {
+        TreesProblems.display_tree_perimeter(root);
+    }
 }

@@ -1,13 +1,83 @@
 package com.appdevelapp.problems.educative;
 
+import com.appdevelapp.datastructures.queue.Queue;
 import com.appdevelapp.datastructures.stack.Stack;
-import com.appdevelapp.datastructures.tree.BinaryTree;
 
 public class TreesProblems {
     public static void inOrderTravesal(BinaryTreeNode root) throws Exception {
         BinaryTreeInorderIterator iterator = new BinaryTreeInorderIterator(root);
         while (iterator.hasNext()){
             System.out.print(iterator.getNext().data + ",");
+        }
+    }
+
+    public static void display_tree_perimeter(BinaryTreeNode root) throws Exception {
+        if(root != null){
+            PrintLeftEdge(root);
+
+            if(root.left != null || root.right != null){
+                PrintAllLeafNodes(root);
+            }
+
+            PrintRightEdge(root);
+        }
+    }
+
+    private static void PrintLeftEdge(BinaryTreeNode root){
+        while (root != null){
+            int value = root.data;
+            if(root.left != null){
+                root = root.left;
+            }
+            else if(root.right != null){
+                root = root.right;
+            }
+            else{
+                break;
+            }
+
+            System.out.print(value + " --> ");
+        }
+    }
+
+    private static void PrintAllLeafNodes(BinaryTreeNode root) throws Exception {
+        Queue<BinaryTreeNode> queue = new Queue<>(100);
+        queue.enqueue(root);
+        while (!queue.isEmpty()){
+            BinaryTreeNode curNode = queue.dequeue();
+            if(curNode.left != null){
+                queue.enqueue(curNode.left);
+            }
+
+            if(curNode.right != null){
+                queue.enqueue(curNode.right);
+            }
+
+            if(curNode.left == null && curNode.right == null){
+                System.out.print(curNode.data + " --> ");
+            }
+        }
+    }
+
+    private static void PrintRightEdge(BinaryTreeNode root) throws Exception {
+        Stack<Integer> stack = new Stack<>(100);
+        while (root != null){
+            int value = root.data;
+            if(root.right != null){
+                root = root.right;
+            }
+            else if(root.left != null){
+                root = root.left;
+            }
+            else{
+                break;
+            }
+
+            stack.push(value);
+        }
+
+        while(!stack.isEmpty()){
+            System.out.print(stack.pop() + " --> ");
         }
     }
 }
