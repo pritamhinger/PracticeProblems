@@ -4,7 +4,10 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 class TreesProblemsTest {
 
@@ -55,5 +58,10 @@ class TreesProblemsTest {
         TreesProblems.inOrderTraversal(root);
         System.out.println();
         TreesProblems.inOrderTraversal(node);
+    }
+
+    @Test
+    void populate_all_sibling_pointers() throws Exception {
+        TreesProblems.populate_all_sibling_pointers(root);
     }
 }
